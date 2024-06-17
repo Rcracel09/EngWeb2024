@@ -1,0 +1,83 @@
+doctype html
+html
+  head
+    title Register
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .register-container {
+        background: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+      }
+      .register-container h2 {
+        margin-bottom: 30px;
+        color: #333;
+      }
+      .register-container input {
+        width: 100%;
+        padding: 15px;
+        margin: 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      .register-container button {
+        width: 100%;
+        padding: 15px;
+        background: #0779e4;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+      .register-container button:hover {
+        background: #005bb5;
+      }
+      .register-container .login-button {
+        width: 100%;
+        padding: 15px;
+        background: #ccc;
+        color: #333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-sizing: border-box;
+        margin-top: 15px;
+        font-size: 16px;
+      }
+      .register-container .login-button:hover {
+        background: #aaa;
+      }
+      .register-container a {
+        margin-top: 15px;
+        color: #333;
+        text-decoration: none;
+      }
+      .register-container a:hover {
+        text-decoration: underline;
+      }
+  body
+    .register-container
+      h2 Register
+      form(action="/register" method="POST")
+        input(type="text" name="username" placeholder="Username" required)
+        input(type="email" name="email" placeholder="Email" required)
+        input(type="password" name="password" placeholder="Password" required)
+        input(type="password" name="confirmPassword" placeholder="Confirm Password" required)
+        button(type="submit") Register
+      a(href='/')
+        button.login-button Login

@@ -1,0 +1,121 @@
+doctype html
+html
+  head
+    title Detalhes da UC #{uc.sigla}
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+      }
+      #main-header {
+        background: #333;
+        color: #fff;
+        padding-top: 30px;
+        min-height: 70px;
+        border-bottom: #0779e4 3px solid;
+        display: flex;
+        align-items: center;
+      }
+      #main-header h1 {
+        flex-grow: 1;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0;
+        font-size: 24px;
+      }
+      .nav-button-left {
+        margin-right: auto;
+        padding-left: 20px;
+      }
+      .nav-button-left2 {
+        margin-right: 10px;
+        padding-left: 20px;
+      }
+      .nav-button-left3 {
+        margin-right: 10px;
+        padding-left: 10%;
+      }
+      .nav-button-right {
+        margin-left: auto;
+        padding-right: 20px;
+      }
+      .nav-button-left a, .nav-button-left2 a, .nav-button-left3 a, .nav-button-right a {
+        color: #fff;
+        text-decoration: none;
+        background: #0779e4;
+        padding: 10px 20px;
+        border-radius: 5px;
+      }
+      .nav-button-left a:hover, .nav-button-left2 a:hover, .nav-button-left3 a:hover, .nav-button-right a:hover {
+        background: #005bb5;
+      }
+      .content {
+        background: #fff;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .section {
+        margin-bottom: 20px;
+      }
+      .section h2 {
+        color: #333;
+        border-bottom: 2px solid #0779e4;
+        padding-bottom: 5px;
+      }
+      .section ul {
+        list-style: none;
+        padding: 0;
+      }
+      .section li {
+        background: #f4f4f4;
+        margin: 10px 0;
+        padding: 10px;
+        border-left: #0779e4 5px solid;
+      }
+  body
+    header#main-header
+      .nav-button-left
+        a(href='/users/profile') Perfil
+      if role === 'Admin'
+        .nav-button-left2 
+          a(href='/users') Users
+      h1 Detalhes da UC #{uc.sigla}
+      .nav-button-right
+        a(href='/') Sair
+    div.container
+      div.content
+        .section
+          h2 Título
+          p #{uc.titulo}
+        .section 
+          h2 Docentes
+          a(href=`/ucs/${uc.sigla}/docentes`) Docentes
+        .section
+          h2 Horários
+          h3 Teóricas
+          ul
+            each teorica in uc.horario.teoricas
+              li #{teorica}
+          h3 Práticas
+          ul
+            each pratica in uc.horario.praticas
+              li #{pratica}
+        .section
+          h2 Avaliação e Datas 
+          a(href=`/ucs/${uc.sigla}/avaliacoes-e-datas`) Avaliação e Datas
+        .section 
+          h2 Aulas Práticas
+          a(href=`/ucs/${uc.sigla}/aulas/praticas`) Aulas Práticas
+        .section
+          h2 Aulas Teóricas
+          a(href=`/ucs/${uc.sigla}/aulas/teoricas`) Aulas Teóricas
+        a(href='/ucs') Voltar à lista de siglas

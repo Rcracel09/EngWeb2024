@@ -1,0 +1,163 @@
+doctype html
+html
+  head
+    title Aulas Práticas da UC #{sigla}
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+      }
+      #main-header {
+        background: #333;
+        color: #fff;
+        padding-top: 30px;
+        min-height: 70px;
+        border-bottom: #0779e4 3px solid;
+        display: flex;
+        align-items: center;
+      }
+      #main-header h1 {
+        flex-grow: 1;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0;
+        font-size: 24px;
+      }
+      .nav-button-left {
+        margin-right: auto;
+        padding-left: 20px;
+      }
+      .nav-button-left2 {
+        margin-right: 10px;
+        padding-left: 20px;
+      }
+      .nav-button-right {
+        margin-left: auto;
+        padding-right: 20px;
+      }
+      .nav-button-left a, .nav-button-left2 a, .nav-button-right a {
+        color: #fff;
+        text-decoration: none;
+        background: #0779e4;
+        padding: 10px 20px;
+        border-radius: 5px;
+      }
+      .nav-button-left a:hover, .nav-button-left2 a:hover, .nav-button-right a:hover {
+        background: #005bb5;
+      }
+      .content {
+        background: #fff;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .section {
+        margin-bottom: 20px;
+      }
+      .section h2 {
+        color: #333;
+        border-bottom: 2px solid #0779e4;
+        padding-bottom: 5px;
+        display: flex;
+        align-items: center;
+      }
+      .section h2 button {
+        background: #0779e4;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-left: 10px;
+        cursor: pointer;
+      }
+      .section h2 button:hover {
+        background: #005bb5;
+      }
+      .section ul {
+        list-style: none;
+        padding: 0;
+      }
+      .section li {
+        background: #f4f4f4;
+        margin: 10px 0;
+        padding: 10px;
+        border-left: #0779e4 5px solid;
+      }
+      .section li .remove-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+      }
+      .section li .remove-button img {
+        width: 20px;
+        height: 20px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+      }
+      form input,
+      form textarea {
+        margin: 5px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      form button {
+        background: #0779e4;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      form button:hover {
+        background: #005bb5;
+      }
+  body
+    header#main-header
+      .nav-button-left
+        a(href='/users/profile') Perfil
+      if role === 'Admin'
+        .nav-button-left2 
+          a(href='/users') Users
+      h1 Aulas Práticas da UC #{sigla}
+      .nav-button-right
+        a(href='/') Sair
+    div.container
+      .content
+        .section
+          h2
+            | Aulas Práticas
+            button(type="button", onclick="document.getElementById('aulaForm').style.display='block'") Adicionar Aula
+          ul
+            each pratica in praticas
+              li
+                p Data: #{pratica.data}
+                ul
+                  each item in pratica.sumario
+                    li #{item}
+                form(action=`/ucs/${sigla}/aulas/praticas/remover`, method="POST", style="display:inline")
+                  input(type="hidden" name="data" value=`${pratica.data}`)
+                  button.remove-button(type="submit")
+                    img(src="/images/trash-icon.png", alt="Remove")
+                if pratica.pdf
+                  p 
+                    a(href=`/fileStore/${pratica.pdf}` download=`${pratica.pdf}`) Download PDF
+          form#aulaForm(action=`/ucs/${sigla}/aulas/praticas`, method="POST", enctype="multipart/form-data", style="display:none")
+            input(type="text" name="data" placeholder="Data da Aula")
+            textarea(name="sumario" placeholder="Sumário da Aula")
+            input(type="file" name="pdf" accept="application/pdf")
+            button(type="submit") Salvar Aula
+            a(href="#", onclick="document.getElementById('aulaForm').style.display='none'") Cancelar
+        a(href=`/ucs/${sigla}`) Voltar
